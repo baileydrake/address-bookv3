@@ -13,6 +13,14 @@ var Contact = {
     this.lastName = lastName;
     this.fullName = firstName + " " + lastName;
     this.addresses = [];
+  },
+
+  createAddress: function(street, city, state) {
+    var address = Object.create(Address);
+    Address.create(street, city, state);
+    this.addresses.push(address);
+    return address;
+
   }
 };
 
@@ -34,6 +42,8 @@ var Address = {
 
 
 $(document).ready(function() {
+// var newContact = currentContact;
+
   $("#add-address").click(function() {
     $("#new-addresses").append('<div class="new-address">' + 
                                  '<div class="form-group">' + 
@@ -64,14 +74,12 @@ $(document).ready(function() {
       var inputtedCity = $(this).find("input.new-city").val();
       var inputtedState = $(this).find("input.new-state").val();
 
-      var newAddress = Address.create(inputtedStreet, inputtedCity, inputtedState);
-
-
-      newContact.addresses.push(newAddress);
+      var newAddress = newContact.createAddress(inputtedStreet, inputtedCity, inputtedState);
     });
 
 
     $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName + "</span></li>");
+
 
     $(".contact").last().click(function() {
       $("#show-contact").show();
@@ -83,6 +91,10 @@ $(document).ready(function() {
       $("ul#addresses").text("");
       newContact.addresses.forEach(function(address) {
         $("ul#addresses").append("<li>" + address.fullAddress + "</li>");
+        $("#edit").click(function() {
+          $("form#current-contact").show();
+        });
+
       });
     });
 

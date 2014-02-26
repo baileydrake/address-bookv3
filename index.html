@@ -46,13 +46,14 @@
             <button type="submit" class="btn">Add</button>
           </form>
 
+
           <h2>Contacts:</h2>
           <ul id="contacts">
-
           </ul>
         </div>
 
-        <div class="col-md-6">
+
+        <div class="col-md-3">
           <div id="show-contact">
             <h2></h2>
 
@@ -60,10 +61,35 @@
             <p>Last name: <span class="last-name"></span></p>
             <p>Addresses:</p>
             <ul id="addresses">
-
             </ul>
+            <button type="submit" class="btn" id="edit">Edit</button>
           </div>
         </div>
+
+
+        <div class="col-md-3">
+          <form id="current-contact">
+            <h2>Edit a contact:</h2>
+            <div id="edit-addresses">
+              <div class="edit-address">
+                <div class="form-group">
+                  <label for="edit-street">Street</label>
+                  <input type="text" class="form-control edit-street">
+                </div>
+                <div class="form-group">
+                  <label for="edit-city">City</label>
+                  <input type="text" class="form-control edit-city">
+                </div>
+                <div class="form-group">
+                  <label for="edit-state">State</label>
+                  <input type="text" class="form-control edit-state">
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn">Add</button>
+          </form>
+        </div>
+
       </div>
     </div>
   </body>
