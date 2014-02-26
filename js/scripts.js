@@ -1,11 +1,34 @@
 var Contact = {
-  fullName: function() {
-    return this.firstName + " " + this.lastName;
+  all: [],
+
+  create: function(firstName, lastName) {
+    var contact = Object.create(Contact);
+    contact.initialize(firstName, lastName);
+    Contact.all.push(contact);
+    return contact;
+  },
+
+  initialize: function(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.fullName = firstName + " " + lastName;
+    this.addresses = [];
   }
 };
+
+
 var Address = {
-  fullAddress: function() {
-    return this.street + ", " + this.city + ", " + this.state;
+  create: function(street, city, state) {
+    var address = Object.create(Address);
+    address.initialize(street, city, state);
+    return address;
+  },
+
+  initialize: function(street, city, state) {
+    this.street = street;
+    this.city = city;
+    this.state = state;
+    this.fullAddress = street + ", " + city + ", " + state;
   }
 };
 
@@ -34,38 +57,32 @@ $(document).ready(function() {
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
 
-    var newContact = Object.create(Contact);
-    newContact.firstName = inputtedFirstName;
-    newContact.lastName = inputtedLastName;
-
-    newContact.addresses = [];
+    var newContact = Contact.create(inputtedFirstName, inputtedLastName);
 
     $(".new-address").each(function() {
       var inputtedStreet = $(this).find("input.new-street").val();
       var inputtedCity = $(this).find("input.new-city").val();
       var inputtedState = $(this).find("input.new-state").val();
 
-      var newAddress = Object.create(Address);
-      newAddress.street = inputtedStreet;
-      newAddress.city = inputtedCity;
-      newAddress.state = inputtedState;
+      var newAddress = Address.create(inputtedStreet, inputtedCity, inputtedState);
+
 
       newContact.addresses.push(newAddress);
     });
 
 
-    $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName() + "</span></li>");
+    $("ul#contacts").append("<li><span class='contact'>" + newContact.fullName + "</span></li>");
 
     $(".contact").last().click(function() {
       $("#show-contact").show();
 
-      $("#show-contact h2").text(newContact.fullName());
+      $("#show-contact h2").text(newContact.fullName);
       $(".first-name").text(newContact.firstName);
       $(".last-name").text(newContact.lastName);
 
       $("ul#addresses").text("");
       newContact.addresses.forEach(function(address) {
-        $("ul#addresses").append("<li>" + address.fullAddress() + "</li>");
+        $("ul#addresses").append("<li>" + address.fullAddress + "</li>");
       });
     });
 
